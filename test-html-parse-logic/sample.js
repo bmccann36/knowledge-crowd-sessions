@@ -27,8 +27,43 @@ const myHtml = `<div style="margin: 0 auto; max-width: 600px; width: 100%">
 </table>
 </div>`
 
-const $ = cheerio.load(myHtml)
+//? select the "style" element of the p tag
+const select = cheerio.load(myHtml)
+// console.log(select('tbody').html())
+const pTag = select('tbody').find('p')
+const styleAttr = pTag.attr('style')
+// console.log(styleAttr.split(";"))
+// EXAMPLE $ex2('#fruits')..find('li')
 
-// console.log($('p').html());
-const style = $.attr('style');
-console.log(style);
+const input = [
+  'color: #333',
+  ' margin: 0 0 15px',
+  ' font: normal 17px/25px georgia, serif'
+]
+// we want to filter out anything that specifies font
+// and return as a string
+const filteredStyle = input.filter((el)=> !el.includes('font:'))
+// now we have the string we want 
+const newFontStyle = filteredStyle.join()
+// replace the old style attribute with our new one
+pTag.attr('style', newFontStyle)
+
+console.log(select('tbody').html())
+
+
+  // const newUlSpec = ulSpec.replace('font:10px georgia,serif;', '');
+  // $(el).find('ul').attr('style', newUlSpec);
+
+
+
+const cheerioSample = `
+<ul id="fruits">
+    <li class="apple">Apple</li>
+    <li class="orange">Orange</li>
+    <li class="pear">Pear</li>
+</ul>`
+
+// Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
+// const $ex2 = cheerio.load(cheerioSample)
+// console.log($ex2('#fruits').find('li').length)
+//=> 3
