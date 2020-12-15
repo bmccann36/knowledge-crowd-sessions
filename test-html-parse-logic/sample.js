@@ -25,10 +25,10 @@ const myHtml = `<div style="margin: 0 auto; max-width: 600px; width: 100%">
     </tr>
   </tbody>
 </table>
-</div>`
+</div>`;
 
-const $ = cheerio.load(myHtml)
+const $ = cheerio.load(myHtml);
 
 // console.log($('p').html());
-const style = $.attr('style');
+const style = $(myHtml).find("p").attr("style");
 console.log(style);
