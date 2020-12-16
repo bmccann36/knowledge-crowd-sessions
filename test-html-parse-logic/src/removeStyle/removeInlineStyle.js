@@ -17,8 +17,8 @@ class RemoveInlineStyle {
   }
 
   /**
-   * 
-   * @param {string} htmlEmailContent 
+   *
+   * @param {string} htmlEmailContent
    * @param {string} html with style removed
    */
   removeAllStyles(htmlEmailContent) {
@@ -27,8 +27,18 @@ class RemoveInlineStyle {
     $('div').each(function (i, el) {
       $(el).attr('style', null);
     });
+
+    // TODO remove span styles
+
+    // TODO remove font style from table data
+
+    // TODO remove font style from ul attr
+
+    // and maybe more....
+
     return $.html();
   }
+
 }
 
 module.exports = RemoveInlineStyle;

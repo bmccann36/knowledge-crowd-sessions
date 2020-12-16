@@ -6,7 +6,6 @@ const cheerio = require('cheerio');
 
 let target;
 
-
 //? FOR TESTING
 const sampleNlData = fs
   .readFileSync(path.join(__dirname, 'morning_newsletter.html'))
@@ -39,6 +38,18 @@ describe('RemoveInlineStyle', () => {
       expect(divStyle).toBe(undefined);
     });
     // fs.writeFileSync(path.join(__dirname, 'div_style_removed.html'), unstyledResult);
+  });
+
+  it('removes ALL style from all the spans', async () => {
+    const emailContentHtmlSample = await getMockEmailContent();
+    const unstyledResult = target.removeAllStyles(emailContentHtmlSample);
+    // console.log(unstyledResult);
+    const $ = cheerio.load(unstyledResult);
+    $('span').each((i, el) => {
+      const spanStyle = $(el).attr('style');
+      expect(spanStyle).toBe(undefined);
+    });
+    // fs.writeFileSync(path.join(__dirname, 'span_style_removed.html'), unstyledResult);
   });
 });
 
@@ -74,13 +85,37 @@ async function getMockNlHtmlDoc() {
 async function getMockEmailContent() {
   const myHtml = html`
     <div style="margin: 0 auto; max-width: 600px; width: 100%">
-      <p>div01</p>
+      <table width="100%" cellpadding="0">
+        <tbody>
+          <tr>
+            <td align="left">
+              <p style="color: #333;font: normal 17px/25px georgia, serif;margin: 0 0 15px;" >
+                <span style="font-weight: 700; font-size: inherit"
+                  >And in the U.S.? The number of new cases has risen 51 percent over the
+                  past month.</span
+                >
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div style="margin: 0 auto; max-width: 600px; width: 100%">
-      <p>div02</p>
-    </div>
-    <div style="margin: 0 auto; max-width: 600px; width: 100%">
-      <p>div03</p>
+      <table width="100%" cellpadding="0">
+        <tbody>
+          <tr>
+            <td align="left">
+              <p style="color: #333;font: normal 17px/25px georgia, serif;margin: 0 0 15px;" >
+                The causes are not a mystery. The U.S. still lacks a coherent testing
+                strategy, and large parts of the country continue to defy basic health
+                advice. One example is Mitchell, a small South Dakota city, where deaths
+                have spiked recently &#x2014; including the loss of a beloved high school
+                coach. Yet anti-mask protesters continue to undermine the local response.
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   `;
   const renderedHtml = await renderToString(myHtml);
