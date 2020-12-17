@@ -38,18 +38,18 @@ describe('RemoveInlineStyle', () => {
   });
 
   it('removes ALL style from all the divs', async () => {
-    const emailContentHtmlSample = await getMockEmailContent();
-    const unstyledResult = target.removeAllStyles(emailContentHtmlSample);
+    // const emailContentHtmlSample = await getMockEmailContent();
+    const unstyledResult = target.removeAllStyles(contentOnlySample);
     // console.log(unstyledResult);
     const $ = cheerio.load(unstyledResult);
     $('div').each((i, el) => {
       const divStyle = $(el).attr('style');
       expect(divStyle).toBe(undefined);
     });
-    // fs.writeFileSync(
-    //   path.join(__dirname, '..', '..', 'htmlSamples', 'div_style_removed.html'),
-    //   unstyledResult,
-    // );
+    fs.writeFileSync(
+      path.join(__dirname, '..', '..', 'htmlSamples', 'div_style_removed.html'),
+      unstyledResult,
+    );
   });
 
   it('removes ALL style from all the spans', async () => {
