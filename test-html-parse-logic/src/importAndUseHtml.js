@@ -13,7 +13,7 @@ console.log(chalk.yellow("__dirname is: "), __dirname);
  relative file path = /htmlSamples/sample01.html"
  so... __dirname + relative file path = /Users/chylomicronman/git-repos/knowledge-crowd-sessions/test-html-parse-logic/htmlSamples/sample01.html
 */
-const pathToHtml = path.join(__dirname, "./htmlSamples/sample01.html");
+const pathToHtml = path.join(__dirname, "..", "htmlSamples/sample01.html");
 console.log(chalk.yellow("pathToHtml :>> "), pathToHtml);
 // we use the fs module to read the file synchrounously
 // note that we could us fs.readFile which is asynchrounous (non blocking) which will force us to use a callback instead
