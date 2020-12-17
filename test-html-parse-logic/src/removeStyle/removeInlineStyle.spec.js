@@ -15,7 +15,7 @@ const sampleNlData = fs
   .readFileSync(path.join(__dirname, 'morning_newsletter.html'))
   .toString();
 const contentOnlySample = fs
-  .readFileSync(path.join(__dirname, 'email_content_only.html'))
+  .readFileSync(path.join(__dirname, '..', '..', 'htmlSamples/email_content_only.html'))
   .toString();
 
 describe('RemoveInlineStyle', () => {
@@ -27,12 +27,14 @@ describe('RemoveInlineStyle', () => {
     const htmlSample = await getMockNlHtmlDoc();
     //? ACT
     const selectedContent = target.selectEmailContainerContent(htmlSample);
+    // if you want to pass in the full actual html newsletter
+    // const selectedContent = target.selectEmailContainerContent(sampleNlData);
     //? ASSERT
     const $ = cheerio.load(selectedContent); // load the output
     const divContents = $('div').text(); // get contents of div
     expect(divContents).toBe('TEST DIV WITH CONTENT');
     //? use the fs.writeFile line below if you want to write the result to a file anc check it out
-    // fs.writeFileSync(path.join(__dirname, 'email_content_only.html'), selectedContent);
+    // fs.writeFileSync(path.join(__dirname, '..', '..', 'htmlSamples/email_content_only.html'), selectedContent);
   });
 
   it('removes ALL style from all the divs', async () => {
@@ -44,7 +46,10 @@ describe('RemoveInlineStyle', () => {
       const divStyle = $(el).attr('style');
       expect(divStyle).toBe(undefined);
     });
-    // fs.writeFileSync(path.join(__dirname, 'div_style_removed.html'), unstyledResult);
+    // fs.writeFileSync(
+    //   path.join(__dirname, '..', '..', 'htmlSamples', 'div_style_removed.html'),
+    //   unstyledResult,
+    // );
   });
 
   it('removes ALL style from all the spans', async () => {
@@ -56,7 +61,10 @@ describe('RemoveInlineStyle', () => {
       const spanStyle = $(el).attr('style');
       expect(spanStyle).toBe(undefined);
     });
-    // fs.writeFileSync(path.join(__dirname, 'span_style_removed.html'), unstyledResult);
+    // fs.writeFileSync(
+    //   path.join(__dirname, '..', '..', 'htmlSamples', 'span_style_removed.html'),
+    //   unstyledResult,
+    // );
   });
   it('removes any font styling from "td" rows than are within a "tbody" element', async () => {
     const emailContentHtmlSample = await getMockEmailContent();
@@ -76,7 +84,10 @@ describe('RemoveInlineStyle', () => {
       const ulStyle = $(tbodyEl).find('ul').attr('style');
       expect(ulStyle).toBe('color: #333;text-align: left;padding-left: 50px;');
     });
-    // fs.writeFileSync(path.join(__dirname, 'ul_style_removed.html'), unstyledResult);
+    // fs.writeFileSync(
+    //   path.join(__dirname, '..', '..', 'htmlSamples', 'ul_style_removed.html'),
+    //   unstyledResult,
+    // );
   });
 });
 

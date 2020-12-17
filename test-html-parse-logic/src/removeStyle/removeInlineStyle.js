@@ -33,6 +33,8 @@ class RemoveInlineStyle {
     $('tbody').each((i, el) => {
       // select any "span" element that is inside a tbody element
       $(el).find('span').attr('style', null);
+      // set paragraph styles to null
+      $(el).find('p').attr('style', null);
 
       const tdStyle = $(el).find('td').attr('style');
       // remove font size
@@ -40,8 +42,7 @@ class RemoveInlineStyle {
         const newTdStyle = this.removeFontStyles(tdStyle);
         $(el).find('td').attr('style', newTdStyle);
       }
-      // set paragraph styles to null
-      $(el).find('p').attr('style', null);
+
       const ulSpec = $(el).find('ul').attr('style');
       if (ulSpec) {
         const newUlSpec = this.removeFontStyles(ulSpec);
@@ -62,7 +63,7 @@ class RemoveInlineStyle {
     const filtered = attrList.filter((cssProp) => {
       return cssProp.includes('font') == false;
     });
-    return filtered.join(";");
+    return filtered.join(';');
   }
 }
 
