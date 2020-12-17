@@ -27,44 +27,14 @@ class RemoveInlineStyle {
     $('div').each(function (i, el) {
       $(el).attr('style', null);
     });
+
     /**
-     * iterates over each tbody element and removes the styling of child elements within the tbody
+     * TODO add in the rest of this function to get the rest of the tests passing
      */
-    $('tbody').each((i, el) => {
-      // select any "span" element that is inside a tbody element
-      $(el).find('span').attr('style', null);
-      // set paragraph styles to null
-      $(el).find('p').attr('style', null);
-
-      const tdStyle = $(el).find('td').attr('style');
-      // remove font size
-      if (tdStyle) {
-        const newTdStyle = this.removeFontStyles(tdStyle);
-        $(el).find('td').attr('style', newTdStyle);
-      }
-
-      const ulSpec = $(el).find('ul').attr('style');
-      if (ulSpec) {
-        const newUlSpec = this.removeFontStyles(ulSpec);
-        $(el).find('ul').attr('style', newUlSpec);
-      }
-    });
 
     return $.html();
   }
 
-  /**
-   *
-   * @param styleAttributes string of inline style attributes
-   * @returns { filteredStyleAttributes } same style attributes but with any font style removed
-   */
-  removeFontStyles(styleAttributes) {
-    const attrList = styleAttributes.split(';');
-    const filtered = attrList.filter((cssProp) => {
-      return cssProp.includes('font') == false;
-    });
-    return filtered.join(';');
-  }
 }
 
 module.exports = RemoveInlineStyle;

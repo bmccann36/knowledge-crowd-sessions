@@ -22,6 +22,11 @@ describe('RemoveInlineStyle', () => {
   beforeEach(() => {
     target = new RemoveInlineStyle();
   });
+
+  /**
+   * Here is a sample test to get you started
+   * the code for "selectEmailContainerContent" is already written so the test will pass
+   */
   it('selects only the html within <td> tag where "id=EMAIL_CONTAINER"', async () => {
     //? SETUP
     const htmlSample = await getMockNlHtmlDoc();
@@ -37,10 +42,16 @@ describe('RemoveInlineStyle', () => {
     // fs.writeFileSync(path.join(__dirname, '..', '..', 'htmlSamples/email_content_only.html'), selectedContent);
   });
 
+  /**
+   * Another sample test
+   * The code for this test is also complete and this test should pass
+   */
   it('removes ALL style from all the divs', async () => {
+    //? SETUP
     const emailContentHtmlSample = await getMockEmailContent();
+    //? ACT
     const unstyledResult = target.removeAllStyles(emailContentHtmlSample);
-    // console.log(unstyledResult);
+    //? ASSERT
     const $ = cheerio.load(unstyledResult);
     $('div').each((i, el) => {
       const divStyle = $(el).attr('style');
@@ -52,42 +63,60 @@ describe('RemoveInlineStyle', () => {
     // );
   });
 
+  /**
+   * TODO
+   * add the necessary code to the "removeAllStyles" function to get this test to pass
+   */
   it('removes ALL style from all the spans', async () => {
     const emailContentHtmlSample = await getMockEmailContent();
     const unstyledResult = target.removeAllStyles(emailContentHtmlSample);
-    // console.log(unstyledResult);
     const $ = cheerio.load(unstyledResult);
     $('span').each((i, el) => {
       const spanStyle = $(el).attr('style');
       expect(spanStyle).toBe(undefined);
     });
+    //? use this if you want to write the result to a file
     // fs.writeFileSync(
     //   path.join(__dirname, '..', '..', 'htmlSamples', 'span_style_removed.html'),
     //   unstyledResult,
     // );
   });
+
+  /**
+   * TODO
+   * add the necessary code to the "removeAllStyles" function to get this test to pass
+   */
+  it('removes ALL style from all the <p> tag elements', async () => {
+    /**
+     * TODO write this test yourself in addition to writing the code to make it pass
+     */
+  });
+
+  /**
+   * TODO
+   * add the necessary code to the "removeAllStyles" function to get this test to pass
+   */
   it('removes any font styling from "td" rows than are within a "tbody" element', async () => {
     const emailContentHtmlSample = await getMockEmailContent();
     const unstyledResult = target.removeAllStyles(emailContentHtmlSample);
     const $ = cheerio.load(unstyledResult);
     $('tbody').each((i, tbodyEl) => {
       const tdStyle = $(tbodyEl).find('td').attr('style');
+      // notice that other sytle that doesn't have to do with font is preserved
       expect(tdStyle).toBe(' line-height: 0');
     });
   });
 
-  it('removes any font styling from "ul" rows than are within a "tbody" element', async () => {
+  /**
+   * TODO
+   * add the necessary code to the "removeAllStyles" function to get this test to pass
+   */
+  it('removes any font styling from "<ul>" rows than are within a "tbody" element', async () => {
+    // use this input
     const emailContentHtmlSample = await getMockContentWithList();
-    const unstyledResult = target.removeAllStyles(emailContentHtmlSample);
-    const $ = cheerio.load(unstyledResult);
-    $('tbody').each((i, tbodyEl) => {
-      const ulStyle = $(tbodyEl).find('ul').attr('style');
-      expect(ulStyle).toBe('color: #333;text-align: left;padding-left: 50px;');
-    });
-    // fs.writeFileSync(
-    //   path.join(__dirname, '..', '..', 'htmlSamples', 'ul_style_removed.html'),
-    //   unstyledResult,
-    // );
+    /**
+     * TODO write this test yourself in addition to writing the code to make it pass
+     */
   });
 });
 
