@@ -28,9 +28,9 @@ const myHtml = `<div style="margin: 0 auto; max-width: 600px; width: 100%">
 </div>`
 
 //? select the "style" element of the p tag
-const select = cheerio.load(myHtml)
+const $ = cheerio.load(myHtml)
 // console.log(select('tbody').html())
-const pTag = select('tbody').find('p')
+const pTag = $('tbody').find('p')
 const styleAttr = pTag.attr('style')
 // console.log(styleAttr.split(";"))
 // EXAMPLE $ex2('#fruits')..find('li')
@@ -43,6 +43,7 @@ const input = [
 // we want to filter out anything that specifies font
 // and return as a string
 const filteredStyle = input.filter((el)=> !el.includes('font:'))
+console.log(filteredStyle)
 // now we have the string we want 
 const newFontStyle = filteredStyle.join()
 // replace the old style attribute with our new one
