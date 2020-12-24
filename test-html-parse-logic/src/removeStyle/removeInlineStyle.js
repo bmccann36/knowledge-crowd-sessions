@@ -32,16 +32,8 @@ class RemoveInlineStyle {
     $('p').each(function (i, el) {
       $(el).removeAttr('style');
     });
-
-    return $.html();
-  }
-
-  /**
-   * @param {string} inputStyle a string defining styles as input
-   */
-  removeFontStyleFromStr(inputStyle) {
-    // convert inputStyle into an array split by each style attribute
-    const newArr = inputStyle.split(';');
+    const filteredRes = $.html();
+    const newArr = filteredRes.split(';');
     const filteredArr = newArr.filter((el) => {
       if (!el.includes('font')) {
         return el;
@@ -50,5 +42,9 @@ class RemoveInlineStyle {
     return filteredArr.join('; ') + ';';
   }
 }
+
+/**
+ * @param {string} inputStyle a string defining styles as input
+ */
 
 module.exports = RemoveInlineStyle;
