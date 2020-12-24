@@ -49,7 +49,7 @@ describe('RemoveInlineStyle', () => {
   it('removes ALL style from all the divs', async () => {
     //? SETUP
     const emailContentHtmlSample = await getMockEmailContent();
-    //? ACT
+    //? AC
     const unstyledResult = target.removeAllStyles(emailContentHtmlSample);
     //? ASSERT
     const $ = cheerio.load(unstyledResult);
@@ -82,14 +82,14 @@ describe('RemoveInlineStyle', () => {
     // );
   });
 
-  /**
-   * TODO
-   * add the necessary code to the "removeAllStyles" function to get this test to pass
-   */
   it('removes ALL style from all the <p> tag elements', async () => {
-    /**
-     * TODO write this test yourself in addition to writing the code to make it pass
-     */
+    const emailContentHtmlSample = await getMockEmailContent();
+    const unstyledResult = target.removeAllStyles(emailContentHtmlSample);
+    const $ = cheerio.load(unstyledResult);
+    $('p').each((i, el) => {
+      const pStyle = $(el).attr('style');
+      expect(pStyle).toBe(undefined);
+    });
   });
 
   /**
@@ -107,16 +107,32 @@ describe('RemoveInlineStyle', () => {
     });
   });
 
+  it.only('removes any font style tylee from ', () => {
+    const INPUT_TO_TEST = 'font-size: 0; line-height: 0';
+    const result = target.removeFontStyleFromStr(INPUT_TO_TEST);
+    expect(result).toBe(' line-height: 0;');
+  });
+
+  it.only('removes any font with other input', () => {
+    const INPUT_TO_TEST =
+      'color: #333;font: normal 17px/25px georgia, serif;margin: 0 0 15px;';
+    const result = target.removeFontStyleFromStr(INPUT_TO_TEST);
+    expect(result).toBe('color: #333; margin: 0 0 15px;');
+  });
+
   /**
    * TODO
    * add the necessary code to the "removeAllStyles" function to get this test to pass
    */
   it('removes any font styling from "<ul>" rows than are within a "tbody" element', async () => {
     // use this input
-    const emailContentHtmlSample = await getMockContentWithList();
-    /**
-     * TODO write this test yourself in addition to writing the code to make it pass
-     */
+    const emailContentHtmlSample = getMockContentWithList();
+    const unstyledResult = target.removeAllStyles(emailContentHtmlSample);
+    const $ = cheerio.load(unstyledResult);
+    $('tbody').each((i, tbodyEl) => {
+      const ulStyle = $(tbodyEl).find('ul').attr('style');
+      expect(ulStyle).toBe(undefined);
+    });
   });
 });
 

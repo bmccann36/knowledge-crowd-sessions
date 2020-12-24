@@ -25,16 +25,31 @@ class RemoveInlineStyle {
     const $ = cheerio.load(htmlEmailContent);
     // remove div styling
     $('div').each(function (i, el) {
-      $(el).attr('style', null);
+      $(el).removeAttr('style');
     });
-
-    /**
-     * TODO add in the rest of this function to get the rest of the tests passing
-     */
+    $('span').each(function (i, el) {
+      $(el).removeAttr('style');
+    });
+    $('p').each(function (i, el) {
+      $(el).removeAttr('style');
+    });
 
     return $.html();
   }
 
+  /**
+   * @param {string} inputStyle a string defining styles as input
+   */
+  removeFontStyleFromStr(inputStyle) {
+    // convert inputStyle into an array split by each style attribute
+    const newArr = inputStyle.split(';');
+    const filteredArr = newArr.filter((el) => {
+      if (!el.includes('font')) {
+        return el;
+      }
+    });
+    return filteredArr.join('; ') + ';';
+  }
 }
 
 module.exports = RemoveInlineStyle;
