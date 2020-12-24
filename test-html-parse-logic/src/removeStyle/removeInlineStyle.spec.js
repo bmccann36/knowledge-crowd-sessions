@@ -63,10 +63,6 @@ describe('RemoveInlineStyle', () => {
     // );
   });
 
-  /**
-   * TODO
-   * add the necessary code to the "removeAllStyles" function to get this test to pass
-   */
   it('removes ALL style from all the spans', async () => {
     const emailContentHtmlSample = await getMockEmailContent();
     const unstyledResult = target.removeAllStyles(emailContentHtmlSample);
@@ -92,10 +88,6 @@ describe('RemoveInlineStyle', () => {
     });
   });
 
-  /**
-   * TODO
-   * add the necessary code to the "removeAllStyles" function to get this test to pass
-   */
   it('removes any font styling from "td" rows than are within a "tbody" element', async () => {
     const emailContentHtmlSample = await getMockEmailContent();
     const unstyledResult = target.removeAllStyles(emailContentHtmlSample);
@@ -107,7 +99,7 @@ describe('RemoveInlineStyle', () => {
     });
   });
 
-  it.only('removes any font style tylee from ', () => {
+  it.only('removes any font style from style attribute', () => {
     const INPUT_TO_TEST = 'font-size: 0; line-height: 0';
     const result = target.removeFontStyleFromStr(INPUT_TO_TEST);
     expect(result).toBe(' line-height: 0;');
@@ -120,12 +112,7 @@ describe('RemoveInlineStyle', () => {
     expect(result).toBe('color: #333; margin: 0 0 15px;');
   });
 
-  /**
-   * TODO
-   * add the necessary code to the "removeAllStyles" function to get this test to pass
-   */
   it('removes any font styling from "<ul>" rows than are within a "tbody" element', async () => {
-    // use this input
     const emailContentHtmlSample = getMockContentWithList();
     const unstyledResult = target.removeAllStyles(emailContentHtmlSample);
     const $ = cheerio.load(unstyledResult);

@@ -23,7 +23,6 @@ class RemoveInlineStyle {
    */
   removeAllStyles(htmlEmailContent) {
     const $ = cheerio.load(htmlEmailContent);
-    // remove div styling
     $('div').each(function (i, el) {
       $(el).removeAttr('style');
     });
