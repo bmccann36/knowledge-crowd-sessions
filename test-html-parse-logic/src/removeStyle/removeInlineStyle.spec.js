@@ -99,19 +99,6 @@ describe('RemoveInlineStyle', () => {
     });
   });
 
-  // it.only('removes any font style from style attribute', () => {
-  //   const INPUT_TO_TEST = 'font-size: 0; line-height: 0';
-  //   const result = target.removeFontStyleFromStr(INPUT_TO_TEST);
-  //   expect(result).toBe(' line-height: 0;');
-  // });
-
-  // it.only('removes any font with other input', () => {
-  //   const INPUT_TO_TEST =
-  //     'color: #333;font: normal 17px/25px georgia, serif;margin: 0 0 15px;';
-  //   const result = target.removeFontStyleFromStr(INPUT_TO_TEST);
-  //   expect(result).toBe('color: #333; margin: 0 0 15px;');
-  // });
-
   it('removes any font styling from "<ul>" rows than are within a "tbody" element', async () => {
     const emailContentHtmlSample = getMockContentWithList();
     const unstyledResult = target.removeAllStyles(emailContentHtmlSample);
